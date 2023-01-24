@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Assignment 1</title>
+        <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+/* From extension ms-toolsai.jupyter */
+/* These classnames are inherited from bootstrap, but are present in most notebook renderers */
+
+.alert {
+    width: auto;
+    padding: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.alert > *:last-child {
+    margin-bottom: 0;
+}
+#preview > .alert:last-child {
+    /* Prevent this being set to zero by the default notebook stylesheet */
+    padding-bottom: 1em;
+}
+
+.alert-success {
+    /* Note there is no suitable color available, so we just copy "info" */
+    background-color: var(--theme-info-background);
+    color: var(--theme-info-foreground);
+}
+.alert-info {
+    background-color: var(--theme-info-background);
+    color: var(--theme-info-foreground);
+}
+.alert-warning {
+    background-color: var(--theme-warning-background);
+    color: var(--theme-warning-foreground);
+}
+.alert-danger {
+    background-color: var(--theme-error-background);
+    color: var(--theme-error-foreground);
+}
+
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="assignment-1">Assignment 1</h1>
+<h2 id="part-a">Part A</h2>
+<p>Explain the use of the following docker commands:</p>
+<h3 id="docker-build">docker build</h3>
+<blockquote>
+<p>The docker build command builds Docker images from a Dockerfile and a “context”. A build’s context is the set of files located in the specified PATH or URL. The build process can refer to any of the files in the context. For example, your build can use a COPY instruction to reference a file in the context.
+<code>docker build</code> is used to build a docker image using a <code>Dockerfile</code>, which, analogous to a <code>Makefile</code>, contains a set of instructions for building the docker image.</p>
+</blockquote>
+<p>A <em>docker image</em> is a template, a saved state of a docker that can have multiple containers running from it.</p>
+<h3 id="docker-run">docker run</h3>
+<blockquote>
+<p>The docker run command first creates a writeable container layer over the specified image, and then starts it using the specified command. That is, docker run is equivalent to the API /containers/create then /containers/(id)/start. A stopped container can be restarted with all its previous changes intact using docker start. See docker ps -a to view a list of all containers.
+<code>docker run</code> is used to run a docker container from a docker image. A <em>docker container</em> is a running instance of a docker image.</p>
+</blockquote>
+<h2 id="part-b">Part B</h2>
+<p>Write a Dockerfile that will create a docker image (tagged my/python) using the most recent python image on “docker hub”. Please make sure that port 8080 is exposed and that a command line is available upon starting the image in a container.</p>
+<pre><code class="language-Dockerfile"><span class="hljs-keyword">FROM</span> python:latest      <span class="hljs-comment"># Use the latest python image</span>
+<span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">8080</span>             <span class="hljs-comment"># Expose port 8080</span>
+<span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;/bin/bash&quot;</span>]       <span class="hljs-comment"># Start a bash shell</span></span>
+</code></pre>
+<p>To build the image, run the following command:</p>
+<pre><code class="language-bash">docker build -t my/python .
+</code></pre>
+<h2 id="part-c">Part C</h2>
+<p>Write the docker command that will start a container named <code>python1</code> using the image tagged my/python (from part b). Ensure that the container has access to port 8080 and a folder on the host’s file system (you are free to select any folder you wish, e.g. demo/python).</p>
+<pre><code class="language-bash">docker run -it --name python1 -p 8080:8080 -v /home/mosaic/cmpt353/a1/docker:/home my/python
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-it</code></td>
+<td>Run the container in interactive mode</td>
+</tr>
+<tr>
+<td><code>--name python1</code></td>
+<td>Name the container <code>python1</code></td>
+</tr>
+<tr>
+<td><code>-p 8080:8080</code></td>
+<td>Map port 8080 on the host to port 8080 on the container</td>
+</tr>
+<tr>
+<td><code>-v /home/mosaic/cmpt353/a1/docker:/home</code></td>
+<td>Mount the host folder <code>/home/mosaic/cmpt353/a1/docker</code> to the container folder <code>/home</code></td>
+</tr>
+<tr>
+<td><code>my/python</code></td>
+<td>The image to run</td>
+</tr>
+</tbody>
+</table>
+<h2 id="part-d">Part D</h2>
+<p>Explain how a developer can use the container named python1 to develop and run a simple “hello world” python program.</p>
+<p>The developer can use the container to develop and run a simple “hello world” python program by running the following commands:</p>
+<pre><code class="language-bash"><span class="hljs-built_in">cd</span> /home
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;print(&#x27;Hello World&#x27;)&quot;</span> &gt; hello.py
+python hello.py
+</code></pre>
+<p>in this case, the developer first changes the working directory to <code>/home</code>, then creates a file <code>hello.py</code> containing the python code to print “Hello World”, and finally runs the python code in the file <code>hello.py</code>.</p>
+<p>This is very simple example, if the developer wants to develop a more complex python program, they can open up text editor such as <code>vim</code> or <code>nano</code> and edit the file <code>hello.py</code> directly in the container.</p>
+<p>Note that the editor need to be installed in the container first. We can do that by using <code>apt-get</code> to install the editor in the container, or include the command to install the editor in the <code>Dockerfile</code> and rebuild the image. <code>RUN [&quot;apt-get&quot;, &quot;update&quot;]</code> and <code>RUN [&quot;apt-get&quot;, &quot;install&quot;, &quot;-y&quot;, &quot;vim&quot;]</code> are two examples of how to install <code>vim</code> in the container. <a href="%5Bhttps://dev.to/greenteabiscuit/installing-vim-in-a-docker-container-15i6%5D(https://dev.to/greenteabiscuit/installing-vim-in-a-docker-container-15i6)">^2</a></p>
+<p>Also, the developer can use IDEs to develop the python program and run it in the container.</p>
+
+        
+        
+    </body>
+    </html>
