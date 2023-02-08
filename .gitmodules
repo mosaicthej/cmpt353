@@ -7,6 +7,4 @@
 [submodule "labs/03-DOM"]
 	path = labs/03-DOM
 	url = git@github.com:mosaicthej/353lab-DOM.git
-[submodule "labs/04-ExecuteJS"]
-	path = labs/04-ExecuteJS
-	url = git@github.com:Sandiecodes/ExecuteJS.git
+
