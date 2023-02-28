@@ -14,3 +14,6 @@
 [submodule "assignments/a2"]
 	path = assignments/a2
 	url = git@github.com:mosaicthej/cmpt353a2-clientServer.git
+[submodule "assignments/a3"]
+	path = assignments/a3
+	url = git@github.com:mosaicthej/cmpt353a3-three-tier.git
