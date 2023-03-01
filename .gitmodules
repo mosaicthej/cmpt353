@@ -14,3 +14,18 @@
 [submodule "assignments/a2"]
 	path = assignments/a2
 	url = git@github.com:mosaicthej/cmpt353a2-clientServer.git
+[submodule "assignments/a3"]
+	path = assignments/a3
+	url = git@github.com:mosaicthej/cmpt353a3-three-tier.git
+[submodule "labs/05-MySQL_docker"]
+	path = labs/05-MySQL_docker
+	url = git@github.com:mosaicthej/353lab05-MySQL_Docker.git
+[submodule "labs/06-express_routing"]
+	path = labs/06-express_routing
+	url = git@github.com:mosaicthej/353lab06-express_routing.git
+[submodule "labs/07-fetch_data"]
+	path = labs/07-fetch_data
+	url = git@github.com:mosaicthej/353lab07-Fetch_Data.git
+[submodule "labs/08-react_intro"]
+	path = labs/08-react_intro
+	url = git@github.com:mosaicthej/353lab08-intro-React.git
